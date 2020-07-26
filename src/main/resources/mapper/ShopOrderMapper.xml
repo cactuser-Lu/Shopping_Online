@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taobao.dao.IShopOrderDao">
+    <select id="findAllOrder"   resultType="shopOrder">
+        select * from shop_order
+        <if test="shop_code!=null and shop_code!='' ">
+            where shop_code like concat("%",#{shop_code},"%")
+        </if>
+        limit #{start},#{size}
+    </select>
+    <select id="getTotalCount"  resultType="int">
+        select count(*) from shop_order
+        <if test="shop_code!=null and shop_code!='' ">
+            where shop_code like concat("%",#{shop_code},"%")
+        </if>
+    </select>
+    <delete id="deleteById" parameterType="int">
+        delete from shop_order where id=#{id}
+    </delete>
+
+</mapper>
